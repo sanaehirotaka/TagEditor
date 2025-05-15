@@ -1,0 +1,58 @@
+html {
+  font-size: 14px;
+  font-family: "Noto Color Emoji", sans-serif;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+fieldset {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: .5em .75em;
+    margin: .75em;
+}
+
+legend {
+    float: initial;
+    width: initial;
+}
+
+#candicates .candicate,
+#histories .history {
+    cursor: pointer;
+}
+
+#candicates .candicate p,
+#histories .history p {
+    margin: 0;
+    line-height: 1em;
+}
+#candicates .candicate code,
+#histories .history code {
+    color: gray;
+    font-size: 0.75em;
+    line-height: 1em;
+}
+
+#candicates .candicate:hover,
+#histories .history:hover {
+    --bs-bg-opacity: .1;
+    background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+}

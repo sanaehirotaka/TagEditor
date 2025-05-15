@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagEditor", "TagEditor.csproj", "{DD651048-9AAD-4B47-896E-FD1EE9D11163}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD651048-9AAD-4B47-896E-FD1EE9D11163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD651048-9AAD-4B47-896E-FD1EE9D11163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD651048-9AAD-4B47-896E-FD1EE9D11163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD651048-9AAD-4B47-896E-FD1EE9D11163}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31C19665-6BB1-4ABA-AB8C-84A43DC9B8BA}
+	EndGlobalSection
+EndGlobal

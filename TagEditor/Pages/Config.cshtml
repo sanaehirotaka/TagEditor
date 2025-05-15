@@ -1,0 +1,53 @@
+﻿@page
+@model TagEditor.Pages.ConfigModel
+@{
+}
+<form method="post">
+    <fieldset>
+        <legend>プロンプト設定</legend>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/Random#SystemPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenRandomSystemPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/Random#UserPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenRandomUserPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/Generate#SystemPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenGenerateSystemPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/Generate#UserPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenGenerateUserPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div>
+                <a href="/" class="btn btn-primary">
+                    戻る
+                </a>
+            </div>
+            <div>
+                <button value="true" class="btn btn-primary">登録</button>
+            </div>
+        </div>
+    </nav>
+</form>
