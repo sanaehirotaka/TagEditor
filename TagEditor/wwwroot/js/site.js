@@ -86,6 +86,8 @@ async function generateTitle() {
 }
 async function randomPrompt() {
     document.querySelector("#candicates").replaceChildren();
+    document.querySelector("#candicates").classList.add("loading");
+
     try {
         (await Api.randomPrompt()).map(e => {
             appendPromptCandicate(e.description, e.promptText);
@@ -93,6 +95,8 @@ async function randomPrompt() {
     } catch (e) {
         new MessageDialog("Api.randomPrompt の呼び出しでエラー", "OK").show();
         console.error(e);
+    } finally {
+        document.querySelector("#candicates").classList.remove("loading");
     }
 }
 async function generatePrompt() {
@@ -100,6 +104,7 @@ async function generatePrompt() {
     const input = await dialog.show();
     if (input) {
         document.querySelector("#candicates").replaceChildren();
+        document.querySelector("#candicates").classList.add("loading");
         try {
             (await Api.generatePrompt({ "BeforePrompt": document.querySelector("#prompt").value, "Request": input })).map(e => {
                 appendPromptCandicate(e.description, e.promptText);
@@ -107,6 +112,8 @@ async function generatePrompt() {
         } catch (e) {
             new MessageDialog("Api.generatePrompt の呼び出しでエラー", "OK").show();
             console.error(e);
+        } finally {
+            document.querySelector("#candicates").classList.remove("loading");
         }
     }
 }
