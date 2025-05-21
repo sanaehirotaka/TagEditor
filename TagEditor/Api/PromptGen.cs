@@ -30,6 +30,17 @@ namespace TagEditor.Api
 
         [HttpPost]
         [Produces("application/json")]
+        public async Task<List<TagCategory>> CompletionTags([FromForm] string? Prompt)
+        {
+            var promptConfig = storage.Get<PromptConfig>() ?? new PromptConfig();
+            var chat = chatCompletionService.StartResponseSchema<List<TagCategory>>();
+            chat.AddSystemMessage(promptConfig.ApiPromptGenCompletionTagsSystemPrompt1);
+            chat.AddUserMessage(promptConfig.ApiPromptGenCompletionTagsUserPrompt1.Replace("{prompt}", Prompt ?? ""));
+            return await chat.GetResponse() ?? [];
+        }
+
+        [HttpPost]
+        [Produces("application/json")]
         public async Task<Prompt?> Title([FromForm] string? Prompt)
         {
             var promptConfig = storage.Get<PromptConfig>() ?? new PromptConfig();
@@ -38,6 +49,19 @@ namespace TagEditor.Api
             chat.AddUserMessage(promptConfig.ApiPromptGenTitleUserPrompt1.Replace("{prompt}", Prompt ?? ""));
             return await chat.GetResponse();
         }
+    }
+    public class Prompt
+    {
+        public string PromptText { get; set; } = default!;
 
+        public string Description { get; set; } = default!;
+    }
+
+
+    public class TagCategory
+    {
+        public string Category { get; set; } = default!;
+
+        public List<string> Tags { get; set; } = [];
     }
 }

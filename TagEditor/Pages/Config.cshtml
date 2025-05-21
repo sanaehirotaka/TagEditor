@@ -37,6 +37,22 @@
                 <textarea asp-for="PromptConfig.ApiPromptGenGenerateUserPrompt1" rows="6" class="form-control"></textarea>
             </div>
         </div>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/CompletionTags#SystemPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenCompletionTagsSystemPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row mb-1 align-items-center">
+            <div class="col-1">
+                /Api/PromptGen/CompletionTags#UserPrompt1
+            </div>
+            <div class="col-12">
+                <textarea asp-for="PromptConfig.ApiPromptGenCompletionTagsUserPrompt1" rows="6" class="form-control"></textarea>
+            </div>
+        </div>
     </fieldset>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">

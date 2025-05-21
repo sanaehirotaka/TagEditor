@@ -30,6 +30,15 @@ class Api {
     /**
      * @returns {Promise<Array>}
      */
+    static async completionTags(params) {
+        return await (await fetch("/Api/PromptGen/CompletionTags", {
+            method: "POST",
+            body: new URLSearchParams(params),
+        })).json();
+    }
+    /**
+     * @returns {Promise<Array>}
+     */
     static async getHistories() {
         return await (await fetch("/Api/History/Get")).json();
     }
@@ -54,10 +63,16 @@ class Api {
 document.querySelector("#save").addEventListener("click", save);
 document.querySelector("#generateTitle").addEventListener("click", generateTitle);
 document.querySelector("#randomBtn").addEventListener("click", randomPrompt);
+document.querySelector("#complationTagBtn").addEventListener("click", completionTags);
 document.querySelector("#magicBtn").addEventListener("click", generatePrompt);
 document.querySelector("#candicates").addEventListener("click", e => {
-    const dataset = e.target.closest(".candicate").dataset;
-    setPrompt(dataset.description, dataset.prompt);
+    const dataset = e.target.closest(".candicate")?.dataset;
+    if (dataset && dataset.prompt) {
+        setPrompt(dataset.description, dataset.prompt);
+    }
+    if (dataset && dataset.tag) {
+        addTag(dataset.tag);
+    }
 });
 document.querySelector("#histories").addEventListener("click", e => {
     const dataset = e.target.closest(".history").dataset;
@@ -99,6 +114,7 @@ async function randomPrompt() {
         document.querySelector("#candicates").classList.remove("loading");
     }
 }
+
 async function generatePrompt() {
     const dialog = new InputDialog("要望を入力", "");
     const input = await dialog.show();
@@ -118,9 +134,37 @@ async function generatePrompt() {
     }
 }
 
+async function completionTags() {
+    document.querySelector("#candicates").replaceChildren();
+    document.querySelector("#candicates").classList.add("loading");
+    try {
+        const categories = await Api.completionTags({ "Prompt": document.querySelector("#prompt").value });
+        const w = document.createElement("div");
+        for (const category of categories) {
+            const c = document.createElement("strong");
+            c.append(category.category);
+            w.append(c);
+            w.append(...category.tags.map(tag => {
+                const btn = document.createElement("button");
+                btn.dataset.tag = tag;
+                btn.classList.add("candicate", "tag", "btn", "btn-sm");
+                btn.append(tag);
+                return btn;
+            }));
+
+        }
+        document.querySelector("#candicates").append(w);
+    } catch (e) {
+        new MessageDialog("Api.generatePrompt の呼び出しでエラー", "OK").show();
+        console.error(e);
+    } finally {
+        document.querySelector("#candicates").classList.remove("loading");
+    }
+}
+
 function appendPromptCandicate(description, promptText) {
     const element = document.createElement("div");
-    element.classList.add("candicate", "mb-1", "p-1");
+    element.classList.add("candicate", "prompt", "mb-1", "p-1");
     element.dataset.prompt = promptText;
     element.dataset.description = description;
     const text = document.createElement("p");
@@ -153,6 +197,16 @@ async function setPrompt(description, prompt, negative) {
     document.querySelector("#title").value = description;
     document.querySelector("#negative").value = negative;
     await pushHistory(description, prompt, negative);
+}
+
+async function addTag(tag) {
+    let prompt = document.querySelector("#prompt").value;
+    if (!prompt.trim().endsWith(",")) {
+        prompt += (", " + tag);
+    } else {
+        prompt += tag;
+    }
+    document.querySelector("#prompt").value = prompt;
 }
 
 const histories = [];
